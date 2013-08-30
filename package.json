@@ -24,6 +24,9 @@
     "test": "mocha"
   },
   "dependencies": {
+    "async": "~0.2.9",
+    "dateformat": "~1.0.6-1.2.3",
+    "semver": "~2.1.0",
     "yeoman-generator": "~0.13.0"
   },
   "devDependencies": {
