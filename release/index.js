@@ -8,8 +8,8 @@ var fs = require('fs'),
 
 var ReleaseGenerator = module.exports = function ReleaseGenerator(args, options, config) {
   yeoman.generators.NamedBase.apply(this, arguments);
-  if (this.name !== 'major' && this.name !== 'minor' && this.name !== 'patch') {
-    throw new Error('"' + this.name + '" must be one of {major, minor, patch}');
+  if (this.name !== 'major' && this.name !== 'minor' && this.name !== 'patch' && this.name !== 'prerelease') {
+    throw new Error('"' + this.name + '" must be one of {major, minor, patch, prerelease}');
   }
 };
 
