@@ -19,7 +19,7 @@ var ReleaseNotesGenerator = module.exports = function ReleaseNotesGenerator(args
 
 util.inherits(ReleaseNotesGenerator, yeoman.generators.NamedBase);
 
-//ReleaseNotesGenerator.prototype.ensureClean = git.ensureClean;
+ReleaseNotesGenerator.prototype.ensureClean = git.ensureClean;
 ReleaseNotesGenerator.prototype.ensureFetched = git.ensureFetched;
 
 ReleaseNotesGenerator.prototype.readVersions = function() {
