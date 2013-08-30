@@ -39,19 +39,41 @@ ReleaseGenerator.prototype.runTest = function() {
 };
 
 ReleaseGenerator.prototype.readVersions = function() {
-  var bowerConfig = JSON.parse(fs.readFileSync('bower.json'));
+  try {
+    this.bowerConfig = JSON.parse(fs.readFileSync('bower.json'));
+  } catch (err) {
+    /* NOP */
+  }
+  try {
+    this.packageConfig = JSON.parse(fs.readFileSync('package.json'));
+  } catch (err) {
+    /* NOP */
+  }
 
-  this.bowerConfig = bowerConfig;
-  this.priorVersion = bowerConfig.version;
+  this.priorVersion = (this.bowerConfig || this.packageConfig).version;
   this.version = semver.inc(this.priorVersion, this.name);
 };
 
 ReleaseGenerator.prototype.incrementVersion = function() {
   console.log('Incrementing ' + this.priorVersion.yellow + ' to ' + this.version.yellow);
-  this.bowerConfig.version = this.version;
-  fs.writeFileSync('bower.json', JSON.stringify(this.bowerConfig, undefined, 2) + '\n');
 
-  git.addCommit(this, 'bower.json', 'v' + this.version);
+  var files = [];
+  if (this.bowerConfig) {
+    this.bowerConfig.version = this.version;
+    fs.writeFileSync('bower.json', JSON.stringify(this.bowerConfig, undefined, 2) + '\n');
+    files.push('bower.json');
+  }
+  if (this.packageConfig) {
+    this.packageConfig.version = this.version;
+    fs.writeFileSync('package.json', JSON.stringify(this.packageConfig, undefined, 2) + '\n');
+    files.push('package.json');
+  }
+
+  if (files.length) {
+    git.addCommit(this, files, 'v' + this.version);
+  } else {
+    throw new Error('No config files written');
+  }
 };
 
 ReleaseGenerator.prototype.tag = function() {
