@@ -77,5 +77,5 @@ ReleaseNotesGenerator.prototype.updateNotes = function() {
 
   notes = notes.replace(/\.\.\.master/, '...' + this.version);
   notes = notes.replace(/## Development\n/, '## Development\n' + this.engine(this.read('_version.md'), this));
-  this.write(this.notesName || 'release-notes.md', notes);
+  fs.writeFileSync(this.notesName || 'release-notes.md', notes);
 };
