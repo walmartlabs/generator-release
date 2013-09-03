@@ -10,6 +10,12 @@ var fs = require('fs'),
 var ReleaseNotesGenerator = module.exports = function ReleaseNotesGenerator(args, options, config) {
   yeoman.generators.NamedBase.apply(this, arguments);
 
+  this.option('dry-run', {
+    desc: 'Finds the changes that will be recorded and log to the console rather than disk',
+    type: 'Boolean'
+  });
+  this.dryRun = options['dry-run'];
+
   this.date = dateFormat(new Date(), 'mmmm dS, yyyy');
 
   if (this.name !== 'major' && this.name !== 'minor' && this.name !== 'patch') {
@@ -59,6 +65,11 @@ ReleaseNotesGenerator.prototype.commitTime = git.commitTime;
 ReleaseNotesGenerator.prototype.findChanges = git.findChanges;
 
 ReleaseNotesGenerator.prototype.updateNotes = function() {
+  if (this.dryRun) {
+    this.log.write(this.engine(this.read('_version.md'), this));
+    return;
+  }
+
   var notes = this.existing;
   if (!notes) {
     notes = this.engine(this.read('_release-notes.md'), this);
