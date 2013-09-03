@@ -51,8 +51,17 @@ ReleaseGenerator.prototype.readVersions = function() {
   }
 
   this.priorVersion = (this.bowerConfig || this.packageConfig).version;
+
   this.version = semver.inc(this.priorVersion, this.name);
+  if (this.priorVersion) {
+    this.firstCommit = 'v' + this.priorVersion;
+  }
 };
+
+ReleaseGenerator.prototype.originName = git.originName;
+ReleaseGenerator.prototype.findFirstCommit = git.findFirstCommit;
+ReleaseGenerator.prototype.commitTime = git.commitTime;
+ReleaseGenerator.prototype.findChanges = git.findChanges;
 
 ReleaseGenerator.prototype.incrementVersion = function() {
   console.log('Incrementing ' + this.priorVersion.yellow + ' to ' + this.version.yellow);
@@ -81,3 +90,4 @@ ReleaseGenerator.prototype.tag = function() {
 };
 
 ReleaseGenerator.prototype.push = git.push;
+ReleaseGenerator.prototype.pingPullRequests = git.pingPullRequests;
