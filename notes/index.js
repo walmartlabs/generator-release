@@ -49,7 +49,12 @@ ReleaseNotesGenerator.prototype.loadNotes = function() {
       this.existing = fs.readFileSync('release-notes.md');
       this.notesName = 'release-notes.md';
     } catch (err) {
-      /* NOP */
+      try {
+        this.existing = fs.readFileSync('CHANGELOG.md');
+        this.notesName = 'CHANGELOG.md';
+      } catch (err) {
+        /* NOP */
+      }
     }
   }
 
