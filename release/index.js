@@ -91,3 +91,7 @@ ReleaseGenerator.prototype.tag = function() {
 
 ReleaseGenerator.prototype.push = git.push;
 ReleaseGenerator.prototype.pingPullRequests = git.pingPullRequests;
+
+ReleaseGenerator.prototype.notes = function() {
+  console.log('Successfully pushed. If this is an npm package then `npm publish` now needs to be run.');
+};
