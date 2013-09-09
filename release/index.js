@@ -53,7 +53,7 @@ ReleaseGenerator.prototype.readVersions = function() {
   this.priorVersion = (this.bowerConfig || this.packageConfig).version;
 
   this.version = semver.inc(this.priorVersion, this.name);
-  if (this.priorVersion) {
+  if (this.priorVersion && this.priorVersion !== '0.0.0') {
     this.firstCommit = 'v' + this.priorVersion;
   }
 };
