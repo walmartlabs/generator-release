@@ -1,5 +1,6 @@
 'use strict';
-var fs = require('fs'),
+var chalk = require('chalk'),
+    fs = require('fs'),
     git = require('../lib/git'),
     path = require('path'),
     util = require('util'),
@@ -64,7 +65,7 @@ ReleaseGenerator.prototype.commitTime = git.commitTime;
 ReleaseGenerator.prototype.findChanges = git.findChanges;
 
 ReleaseGenerator.prototype.incrementVersion = function() {
-  console.log('Incrementing ' + this.priorVersion.yellow + ' to ' + this.version.yellow);
+  console.log('Incrementing ' + chalk.yellow(this.priorVersion) + ' to ' + chalk.yellow(this.version));
 
   var files = [];
   if (this.bowerConfig) {
