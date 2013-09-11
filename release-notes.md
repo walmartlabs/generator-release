@@ -2,7 +2,13 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/generator-release/compare/v1.2.0...master)
+[Commits](https://github.com/walmartlabs/generator-release/compare/v1.2.1...master)
+
+## v1.2.1 - September 11th, 2013
+
+- [#5](https://github.com/walmartlabs/generator-release/issues/5) - Issue pingback fails when attempting to comment on fixed issues ([@kpdecker](https://api.github.com/users/kpdecker)
+
+[Commits](https://github.com/walmartlabs/generator-release/compare/v1.2.0...v1.2.1)
 
 ## v1.2.0 - September 11th, 2013
 
