@@ -4,7 +4,7 @@
 ## <%= version %> - <%= date %>
 <%
 _.each(pulls, function(issue) { %>
-- [#<%= issue.number %>](<%= issue.html_url %>) - <%= issue.title %> ([@<%= issue.user.login %>](<%= issue.user.url %>)<%
+- [#<%= issue.number %>](<%= issue.html_url %>) - <%= issue.title %> ([@<%= issue.user.login %>](<%= issue.user.url %>))<%
 }); 
 _.each(issues, function(issue) { %>
 - [#<%= issue.number %>](<%= issue.html_url %>) - <%= issue.title %><%
