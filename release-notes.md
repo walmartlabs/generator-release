@@ -12,9 +12,6 @@
 
 - Update README.md - ad244e2
 
-Compatibility notes:
-- TODO : What might have broken?
-
 [Commits](https://github.com/walmartlabs/generator-release/compare/v1.2.2...v1.3.0)
 
 ## v1.2.2 - September 11th, 2013
