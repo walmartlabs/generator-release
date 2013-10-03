@@ -8,7 +8,7 @@ Yeoman generator for handling Bower/NPM releases.
 npm install -g yo generator-release
 ```
 
-A config file needs to be created in `~/.config/generator-release`. This is standard CommonJS module exporting github authentication [options](https://github.com/michael/github#usage).
+A config file, `~/.config/generator-release`, needs to be created. This is standard CommonJS module exporting github authentication [options](https://github.com/michael/github#usage).
 
 ### Example
 
