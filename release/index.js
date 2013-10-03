@@ -12,6 +12,12 @@ var ReleaseGenerator = module.exports = function ReleaseGenerator(args, options,
   if (this.name !== 'major' && this.name !== 'minor' && this.name !== 'patch' && this.name !== 'prerelease') {
     throw new Error('"' + this.name + '" must be one of {major, minor, patch, prerelease}');
   }
+
+  this.option('skip-tests', {
+    desc: 'Skips tests. This is not recommended but can be used to work around environmental issues.',
+    type: 'Boolean'
+  });
+  this.skipTests = options['skip-tests'];
 };
 
 util.inherits(ReleaseGenerator, yeoman.generators.NamedBase);
@@ -20,7 +26,7 @@ ReleaseGenerator.prototype.ensureClean = git.ensureClean;
 ReleaseGenerator.prototype.ensureFetched = git.ensureFetched;
 
 ReleaseGenerator.prototype.runTest = function() {
-  if (!fs.existsSync('package.json')) {
+  if (!fs.existsSync('package.json') || this.skipTests) {
     return;
   }
 
