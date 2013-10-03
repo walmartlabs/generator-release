@@ -53,7 +53,7 @@ ReleaseNotesGenerator.prototype.loadNotes = function() {
         this.existing = fs.readFileSync('CHANGELOG.md');
         this.notesName = 'CHANGELOG.md';
       } catch (err) {
-        /* NOP */
+        this.notesName = 'release-notes.md';
       }
     }
   }
@@ -82,5 +82,9 @@ ReleaseNotesGenerator.prototype.updateNotes = function() {
 
   notes = notes.replace(/\.\.\.master/, '...' + this.version);
   notes = notes.replace(/## Development\n/, '## Development\n' + this.engine(this.read('_version.md'), this));
-  fs.writeFileSync(this.notesName || 'release-notes.md', notes);
+  fs.writeFileSync(this.notesName, notes);
+};
+
+ReleaseNotesGenerator.prototype.notes = function() {
+  console.log(this.notesName + ' updated with latest release notes. Please review and commit prior to final release.');
 };
