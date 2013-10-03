@@ -2,7 +2,20 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/generator-release/compare/v1.2.2...master)
+[Commits](https://github.com/walmartlabs/generator-release/compare/v1.3.0...master)
+
+## v1.3.0 - October 3rd, 2013
+
+- [#6](https://github.com/walmartlabs/generator-release/pull/6) - add missing paren ([@patrickkettner](https://api.github.com/users/patrickkettner))
+- [#8](https://github.com/walmartlabs/generator-release/issues/8) - Add skip-tests option ([@kpdecker](https://api.github.com/users/kpdecker))
+- [#7](https://github.com/walmartlabs/generator-release/issues/7) - Add instructions to notes task ([@kpdecker](https://api.github.com/users/kpdecker))
+
+- Update README.md - ad244e2
+
+Compatibility notes:
+- TODO : What might have broken?
+
+[Commits](https://github.com/walmartlabs/generator-release/compare/v1.2.2...v1.3.0)
 
 ## v1.2.2 - September 11th, 2013
 
