@@ -25,9 +25,11 @@
   },
   "dependencies": {
     "async": "~0.2.9",
+    "bower": "~1.2.7",
     "chalk": "~0.2.1",
     "dateformat": "~1.0.6-1.2.3",
     "github-api": "git://github.com/kpdecker/github.git",
+    "request": "~2.27.0",
     "semver": "~2.1.0",
     "yeoman-generator": "~0.13.0",
     "underscore": "~1.5.1"
