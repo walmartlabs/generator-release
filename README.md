@@ -8,14 +8,14 @@ Yeoman generator for handling Bower/NPM releases.
 npm install -g yo generator-release
 ```
 
-A config file, `~/.config/generator-release`, needs to be created. This is standard CommonJS module exporting github authentication [options](https://github.com/michael/github#usage).
+A config file, `~/.config/generator-release`, needs to be created. The `token` value should contain a [GitHub Personal Access Token](https://github.com/settings/tokens/new)
 
 ### Example
 
 ```javascript
 module.exports = {
   auth: 'oauth',
-  token: 'OAuth Token generated from GitHub Admin'
+  token: 'OAuth GitHub Personal Access Token'
 };
 ```
 
