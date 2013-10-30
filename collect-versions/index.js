@@ -39,7 +39,7 @@ CollectVersions.prototype._scotsman = function() {
       self = this;
   request(this.url, function(err, response, body) {
     if (err) {
-      throw err;
+      throw new Error('Failed to load scotsman url "' + self.url + '" ' + err);
     }
 
     var ls = (/<pre>((?:\n|.)*?)<\/pre>/.exec(body) || [])[1];
