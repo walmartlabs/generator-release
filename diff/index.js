@@ -109,6 +109,10 @@ DiffGenerator.prototype.output = function() {
     });
   }
 
+  if (!out) {
+    out = 'No changes';
+  }
+
   console.log(out);
 };
 
