@@ -37,7 +37,8 @@ CollectVersions.prototype.exec = function() {
 CollectVersions.prototype._scotsman = function() {
   var done = this.async(),
       self = this;
-  request(this.url, function(err, response, body) {
+
+  function process(err, response, body) {
     if (err) {
       throw new Error('Failed to load scotsman url "' + self.url + '" ' + err);
     }
@@ -47,7 +48,15 @@ CollectVersions.prototype._scotsman = function() {
     self.versions[0].bowerRoot = true;
 
     done();
-  });
+  }
+
+  if (this.url.indexOf('//') >= 0) {
+    request(this.url, process);
+  } else {
+    fs.readFile(this.url, function(err, data) {
+      process(err, undefined, data.toString());
+    });
+  }
 };
 
 CollectVersions.prototype._bowerLS = function() {
