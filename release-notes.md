@@ -2,7 +2,18 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/generator-release/compare/v1.3.0...master)
+[Commits](https://github.com/walmartlabs/generator-release/compare/v1.4.0...master)
+
+## v1.4.0 - November 1st, 2013
+
+- [#9](https://github.com/walmartlabs/generator-release/issues/9) - Diff npm tree in the diff generator ([@kpdecker](https://api.github.com/users/kpdecker))
+
+- Allow for link collection when generating notes - 14380ee
+- Allow rebuilding the current release docs - bb7f40c
+- Allow config file to be passed as a cli argument - ccec4fc
+- Allow for bower and npm aggregate diffing with collect-version and diff generators
+
+[Commits](https://github.com/walmartlabs/generator-release/compare/v1.3.0...v1.4.0)
 
 ## v1.3.0 - October 3rd, 2013
 
