@@ -18,6 +18,12 @@ var ReleaseNotesGenerator = module.exports = function ReleaseNotesGenerator(args
   });
   this.dryRun = options['dry-run'];
 
+  this.option('rebuild', {
+    desc: 'Specifes that we want to create notes for the existing version',
+    type: 'Boolean'
+  });
+  this.rebuild = options['rebuild'];
+
   if (!this.dryRun) {
     this.argument('increment', {desc: 'Increment type. May be one of {major, minor, patch, prerelease}', required: true});
 
@@ -65,6 +71,23 @@ ReleaseNotesGenerator.prototype.loadNotes = function() {
   if (this.existing) {
     this.existing = this.existing.toString();
     this.firstCommit = this.priorVersion;
+  }
+};
+
+ReleaseNotesGenerator.prototype.checkRebuild = function() {
+  if (this.rebuild) {
+    if (!this.firstCommit) {
+      throw new Error('Rebuild specified but no existing release notes found');
+    }
+
+    var matcher = new RegExp('/([^/]*)\\.\\.\\.' + this.firstCommit.replace(/\./g, '\\.')),
+        priorVersion = (matcher.exec(this.existing) || [])[1];
+    if (!priorVersion) {
+      throw new Error('Unable to find previous version in release notes');
+    }
+
+    this.lastCommit = this.firstCommit;
+    this.firstCommit = priorVersion;
   }
 };
 
