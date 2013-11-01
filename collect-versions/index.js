@@ -63,6 +63,10 @@ CollectVersions.prototype._bowerLS = function() {
   var done = this.async(),
       self = this;
   childProcess.exec('bower ls --offline', function(err, stdout, stderr) {
+    if (err) {
+      throw err;
+    }
+
     self.versions = parseVersions(stdout);
     self.versions[0].bowerRoot = true;
 
@@ -74,6 +78,10 @@ CollectVersions.prototype._npmLS = function() {
   var done = this.async(),
       self = this;
   childProcess.exec('npm ls --json', function(err, stdout, stderr) {
+    if (err) {
+      throw err;
+    }
+
     var versions = [];
 
     function deepPluck(name, obj, root) {
