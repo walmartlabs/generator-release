@@ -16,7 +16,17 @@ if ((issues.length || pulls.length) && commits.length) { %>
 }
 _.each(commits, function(commit) { %>
 - <%= commit.title %> - <%= commit.sha %><%
-}); %>
+});
+
+if (links.length) {
+%>
+
+Referenced Links:<%
+
+_.each(links, function(link) { %>
+- [<%= link.title %>](<%= link.url %>)<%
+});
+} %>
 
 Compatibility notes:
 - TODO : What might have broken?

@@ -10,12 +10,18 @@ npm install -g yo generator-release
 
 A config file, `~/.config/generator-release`, needs to be created. This is standard CommonJS module exporting github authentication [options](https://github.com/michael/github#usage). The easiest way to configure the authentication is to go to the GitHub admin panel and create a [Personal Access Token](https://github.com/settings/tokens/new), then set it as the `token` in your config. 
 
+Optionally the module may export a `linkFilter` method that allows for parsing of links included in the body of notes issues and pull requests.
+
 ### Example
 
 ```javascript
 module.exports = {
   auth: 'oauth',
-  token: 'GitHub OAuth token'
+  token: 'GitHub OAuth token',
+
+  linkFilter: function(link) {
+    return /atlassian\.net/.test(link.url);
+  }
 };
 ```
 
