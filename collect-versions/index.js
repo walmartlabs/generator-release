@@ -70,21 +70,6 @@ CollectVersions.prototype._bowerLS = function() {
   });
 };
 
-CollectVersions.prototype._hapi = function() {
-  var done = this.async(),
-      self = this;
-  request(this.url, function(err, response, body) {
-    if (err) {
-      throw err;
-    }
-
-    var versions = JSON.parse(body);
-    self.versions = versions;
-
-    done();
-  });
-};
-
 CollectVersions.prototype._npmLS = function() {
   var done = this.async(),
       self = this;
