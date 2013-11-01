@@ -8,7 +8,9 @@ var fs = require('fs'),
     yeoman = require('yeoman-generator');
 
 var ReleaseNotesGenerator = module.exports = function ReleaseNotesGenerator(args, options, config) {
-  yeoman.generators.NamedBase.apply(this, arguments);
+  yeoman.generators.Base.apply(this, arguments);
+
+  this.date = dateFormat(new Date(), 'mmmm dS, yyyy');
 
   this.option('dry-run', {
     desc: 'Finds the changes that will be recorded and log to the console rather than disk',
@@ -16,14 +18,16 @@ var ReleaseNotesGenerator = module.exports = function ReleaseNotesGenerator(args
   });
   this.dryRun = options['dry-run'];
 
-  this.date = dateFormat(new Date(), 'mmmm dS, yyyy');
+  if (!this.dryRun) {
+    this.argument('increment', {desc: 'Increment type. May be one of {major, minor, patch, prerelease}', required: true});
 
-  if (this.name !== 'major' && this.name !== 'minor' && this.name !== 'patch') {
-    throw new Error('"' + this.name + '" must be one of {major, minor, patch}');
+    if (this.increment !== 'major' && this.increment !== 'minor' && this.increment !== 'patch' && this.increment !== 'prerelease') {
+      throw new Error('"' + this.increment + '" must be one of {major, minor, patch, prerelease}');
+    }
   }
 };
 
-util.inherits(ReleaseNotesGenerator, yeoman.generators.NamedBase);
+util.inherits(ReleaseNotesGenerator, yeoman.generators.Base);
 
 ReleaseNotesGenerator.prototype.ensureClean = git.ensureClean;
 ReleaseNotesGenerator.prototype.ensureFetched = git.ensureFetched;
@@ -37,7 +41,7 @@ ReleaseNotesGenerator.prototype.readVersions = function() {
   }
 
   this.priorVersion = 'v' + config.version;
-  this.version = 'v' + semver.inc(this.priorVersion, this.name);
+  this.version = 'v' + semver.inc(this.priorVersion, this.increment || 'patch');
 };
 
 ReleaseNotesGenerator.prototype.loadNotes = function() {
