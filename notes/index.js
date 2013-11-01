@@ -22,7 +22,7 @@ var ReleaseNotesGenerator = module.exports = function ReleaseNotesGenerator(args
     desc: 'Specifes that we want to create notes for the existing version',
     type: 'Boolean'
   });
-  this.rebuild = options['rebuild'];
+  this.rebuild = options.rebuild;
 
   if (!this.dryRun) {
     this.argument('increment', {desc: 'Increment type. May be one of {major, minor, patch, prerelease}', required: true});
