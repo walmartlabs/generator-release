@@ -21,6 +21,15 @@ util.inherits(DiffGenerator, yeoman.generators.Base);
 DiffGenerator.prototype.collectPrevious = collect('previous');
 DiffGenerator.prototype.collectCurrent = collect('current');
 
+DiffGenerator.prototype.dataCheck = function() {
+  if (this.previous[0].bowerRoot !== this.current[0].bowerRoot
+      || this.previous[0].npmRoot !== this.current[0].npmRoot) {
+    throw new Error('Bower/NPM mismatch');
+  }
+
+  this.isBower = this.previous[0].bowerRoot;
+};
+
 DiffGenerator.prototype.diffVersions = function() {
   function byName(coll, name) {
     return _.findWhere(coll, {name: name});
@@ -33,7 +42,7 @@ DiffGenerator.prototype.diffVersions = function() {
     var current = byName(this.current, previous.name);
     if (previous.version !== (current && current.version)) {
       if (current) {
-        changed.push({ name: previous.name, previous: previous.version, current: current.version, bowerRoot: previous.bowerRoot });
+        changed.push({ name: previous.name, previous: previous.version, current: current.version, bowerRoot: previous.bowerRoot, npmRoot: previous.npmRoot });
       } else {
         removed.push(previous);
       }
@@ -53,8 +62,13 @@ DiffGenerator.prototype.diffVersions = function() {
 DiffGenerator.prototype.findNotes = function() {
   var self = this;
   _.each(this.changed, function(change) {
-    var packageDir = change.bowerRoot ? '' : bower.config.directory + '/' + change.name + '/',
-        notes;
+    var packageDir, notes;
+
+    if (self.isBower) {
+      packageDir = change.bowerRoot ? '' : bower.config.directory + '/' + change.name + '/';
+    } else {
+      packageDir = change.npmRoot ? '' : 'node_modules/' + change.name.replace(/\//g, '/node_modules/') + '/';
+    }
 
     try {
       notes = fs.readFileSync(packageDir + 'RELEASE.md');
@@ -62,7 +76,11 @@ DiffGenerator.prototype.findNotes = function() {
       try {
         notes = fs.readFileSync(packageDir + 'release-notes.md');
       } catch (err) {
-        notes = fs.readFileSync(packageDir + 'CHANGELOG.md');
+        try{
+          notes = fs.readFileSync(packageDir + 'CHANGELOG.md');
+        } catch (err) {
+          notes = '';
+        }
       }
     }
 

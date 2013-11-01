@@ -89,31 +89,26 @@ CollectVersions.prototype._npmLS = function() {
   var done = this.async(),
       self = this;
   childProcess.exec('npm ls --json', function(err, stdout, stderr) {
-    function deepPluck(name, obj) {
-      var dependencies;
+    var versions = [];
+
+    function deepPluck(name, obj, root) {
+      versions.push({
+        name: name,
+        version: obj.version
+      });
 
       if (obj.dependencies) {
-        dependencies = _.map(obj.dependencies, function(info, name) {
-          return deepPluck(name, info);
+        _.each(obj.dependencies, function(info, child) {
+          return deepPluck((root ? '' : name + '/') + child, info);
         });
-
-        return {
-          name: name,
-          version: obj.version,
-          dependencies: dependencies
-        };
-      } else {
-        return {
-          name: name,
-          version: obj.version
-        };
       }
     }
 
     var list = JSON.parse(stdout);
-    self.versions = [
-      deepPluck(list.name, list)
-    ];
+    deepPluck(list.name, list, true);
+    versions[0].npmRoot = true;
+
+    self.versions = versions;
 
     done();
   });
@@ -127,6 +122,7 @@ CollectVersions.prototype.output = function() {
 };
 
 function parseVersions(ls) {
+  /*jshint boss:true */
   var versions = [],
       matcher = /(\S+)#(\S+)/g,
       match;
