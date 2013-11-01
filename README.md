@@ -49,3 +49,20 @@ yo release:release [major|minor|patch|prerelease]
 Will increment the release version per the semver action passed in and tag and pushes to the upstream repository.
 
 If publishing to npm the `npm publish` command is still required.
+
+
+### Comparing NPM and Bower collections
+npm
+```
+yo release:collect-versions npm > oldVersion.json
+yo release:diff oldVersion.json npm
+```
+bower
+```
+yo release:collect-versions bower > oldVersion.json
+yo release:diff oldVersion.json bower
+```
+
+Generates a report of the versions that have changed for all packages. Includes release notes for packages that include them.
+
+Note that the arguments to `release:diff` may be any combination of files or `npm`/`bower` meta commands.
