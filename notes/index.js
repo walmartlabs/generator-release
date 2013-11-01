@@ -90,5 +90,7 @@ ReleaseNotesGenerator.prototype.updateNotes = function() {
 };
 
 ReleaseNotesGenerator.prototype.notes = function() {
-  console.log(this.notesName + ' updated with latest release notes. Please review and commit prior to final release.');
+  if (!this.dryRun) {
+    console.log(this.notesName + ' updated with latest release notes. Please review and commit prior to final release.');
+  }
 };
