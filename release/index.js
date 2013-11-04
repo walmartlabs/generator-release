@@ -1,7 +1,9 @@
 'use strict';
-var chalk = require('chalk'),
+var _ = require('underscore'),
+    chalk = require('chalk'),
     fs = require('fs'),
     git = require('../lib/git'),
+    grunt = require('grunt'),
     path = require('path'),
     util = require('util'),
     semver = require('semver'),
@@ -86,10 +88,39 @@ ReleaseGenerator.prototype.incrementVersion = function() {
   }
 
   if (files.length) {
-    git.addCommit(this, files, 'v' + this.version);
+    this.modifiedFiles = files;
   } else {
     throw new Error('No config files written');
   }
+};
+
+ReleaseGenerator.prototype.projectUpdate = function() {
+  // Load the grunt tasks list
+  grunt.task.init([], {help: true});
+  var tasks = _.keys(grunt.task._tasks);
+
+  // If there is a version task, run it
+  if (tasks.indexOf('version') >= 0) {
+    var cb = this.async();
+
+    this.spawnCommand('grunt', ['version', '--ver=' + this.version])
+        .on('error', function(err) {
+          throw err;
+        })
+        .on('exit', function(code) {
+          if (code) {
+            throw new Error('Version update failed');
+          } else {
+            cb();
+          }
+        });
+  }
+};
+
+ReleaseGenerator.prototype.commit = function() {
+  // We are assuming that we will always modify somehting and that the
+  // version task will add it's content manually if run.
+  git.addCommit(this, this.modifiedFiles, 'v' + this.version);
 };
 
 ReleaseGenerator.prototype.tag = function() {
