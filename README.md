@@ -66,3 +66,12 @@ yo release:diff oldVersion.json bower
 Generates a report of the versions that have changed for all packages. Includes release notes for packages that include them.
 
 Note that the arguments to `release:diff` may be any combination of files or `npm`/`bower` meta commands.
+
+### Publishing
+```
+yo release:publish [cdnjs|components] projectName sourceDir
+```
+
+Pushes a particular directory of artifacts to cdnjs or the github components project, optionally creating pull requests if the executing user does not have adequate permissions to directly push.
+
+Note that at this time only frontend publishing is possible. NPM publishing should still be done directly through the `npm publish` command.

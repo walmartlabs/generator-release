@@ -29,6 +29,7 @@
     "chalk": "~0.2.1",
     "dateformat": "~1.0.6-1.2.3",
     "github-api": "git://github.com/kpdecker/github.git",
+    "grunt": "~0.4.1",
     "request": "~2.27.0",
     "semver": "~2.1.0",
     "yeoman-generator": "~0.13.0",
