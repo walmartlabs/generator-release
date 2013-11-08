@@ -2,7 +2,16 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/generator-release/compare/v1.4.0...master)
+[Commits](https://github.com/walmartlabs/generator-release/compare/v1.5.0...master)
+
+## v1.5.0 - November 7th, 2013
+
+- [#2](https://github.com/walmartlabs/generator-release/pull/2) - Add support to release to a separate component repo ([@kpdecker](https://api.github.com/users/kpdecker))
+
+- Do not require config module as global - a2f8d30
+- Add error logging to npm and bower collectors - 5655691
+
+[Commits](https://github.com/walmartlabs/generator-release/compare/v1.4.0...v1.5.0)
 
 ## v1.4.0 - November 1st, 2013
 
