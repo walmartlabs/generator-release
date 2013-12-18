@@ -1,5 +1,6 @@
 'use strict';
-var fs = require('fs'),
+var childProcess = require('child_process'),
+    fs = require('fs'),
     dateFormat = require('dateformat'),
     git = require('../lib/git'),
     path = require('path'),
@@ -87,6 +88,39 @@ ReleaseNotesGenerator.prototype.findFirstCommit = git.findFirstCommit;
 ReleaseNotesGenerator.prototype.commitTime = git.commitTime;
 ReleaseNotesGenerator.prototype.findChanges = git.findChanges;
 
+ReleaseNotesGenerator.prototype.generateNotes = function() {
+  var self = this;
+  this.notesContent = this.engine(this.read('_log.md'), this);
+
+  if (process.env.EDITOR) {
+    var temp = require('temp');
+    var done = this.async();
+
+    temp.track();
+    temp.open('notes', function(err, info) {
+      if (err) {
+        throw err;
+      }
+
+      fs.writeSync(info.fd, self.notesContent);
+      fs.closeSync(info.fd);
+
+      childProcess.exec(process.env.EDITOR + ' "' + info.path + '"', function(err, stdout, stderr) {
+        if (err) {
+          throw err;
+        }
+
+        self.notesContent = fs.readFileSync(info.path).toString();
+        if (!self.notesContent) {
+          throw new Error('No content entered for notes');
+        }
+
+        self.commit = true;
+        done();
+      });
+    });
+  }
+};
 
 ReleaseNotesGenerator.prototype.askVersions = function() {
   var self = this,
@@ -106,9 +140,11 @@ ReleaseNotesGenerator.prototype.askVersions = function() {
 
 ReleaseNotesGenerator.prototype.updateNotes = function() {
   if (this.dryRun) {
-    this.log.write(this.engine(this.read('_version.md'), this));
+    this.log.write(this.notesContent);
     return;
   }
+
+  this.notesContent = this.engine(this.read('_version.md'), this) + this.notesContent;
 
   var notes = this.existing;
   if (!notes) {
@@ -116,12 +152,16 @@ ReleaseNotesGenerator.prototype.updateNotes = function() {
   }
 
   notes = notes.replace(/\.\.\.master/, '...' + this.version);
-  notes = notes.replace(/## Development\n/, '## Development\n' + this.engine(this.read('_version.md'), this));
+  notes = notes.replace(/## Development\n/, '## Development\n' + this.notesContent);
   fs.writeFileSync(this.notesName, notes);
 };
 
 ReleaseNotesGenerator.prototype.notes = function() {
   if (!this.dryRun) {
-    console.log(this.notesName + ' updated with latest release notes. Please review and commit prior to final release.');
+    if (this.commit) {
+      git.addCommit(this, this.notesName, 'Update release notes');
+    } else {
+      console.log(this.notesName + ' updated with latest release notes. Please review and commit prior to final release.');
+    }
   }
 };
