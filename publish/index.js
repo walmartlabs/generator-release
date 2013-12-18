@@ -44,7 +44,7 @@ PublishVersion.prototype.configure = function() {
     this.commitDir = './ajax/libs/' + this.name;
     this.path = this.commitDir + '/' + this.version;
     this.packagePath = this.commitDir + '/package.json';
-    this.commitMsg = 'Update ' + this.name + ' to v' + this.version;
+    this.commitMsg = '[author] Update ' + this.name + ' to v' + this.version;
   } else if (this.type === 'components') {
     this.repo = 'components/' + this.name;
     this.commitDir = this.path = './';
