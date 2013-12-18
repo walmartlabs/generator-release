@@ -2,7 +2,16 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/generator-release/compare/v1.5.0...master)
+[Commits](https://github.com/walmartlabs/generator-release/compare/v2.0.0...master)
+
+## v2.0.0 - December 17th, 2013
+- [#11](https://github.com/walmartlabs/generator-release/issues/11) - Add "[author]" to titles of PRs to CDNJS ([@eastridge](https://api.github.com/users/eastridge))
+- [#10](https://github.com/walmartlabs/generator-release/issues/10) - Unify the notes and release tasks ([@kpdecker](https://api.github.com/users/kpdecker))
+
+Compatibility notes:
+`release:notes` now utilizes `$EDITOR` if specified and prompts for the increment value. `release:release` now utilizes the increment value specified in the notes command automatically.
+
+[Commits](https://github.com/walmartlabs/generator-release/compare/v1.5.0...v2.0.0)
 
 ## v1.5.0 - November 7th, 2013
 
