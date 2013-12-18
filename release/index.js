@@ -10,19 +10,28 @@ var _ = require('underscore'),
     yeoman = require('yeoman-generator');
 
 var ReleaseGenerator = module.exports = function ReleaseGenerator(args, options, config) {
-  yeoman.generators.NamedBase.apply(this, arguments);
-  if (this.name !== 'major' && this.name !== 'minor' && this.name !== 'patch' && this.name !== 'prerelease') {
-    throw new Error('"' + this.name + '" must be one of {major, minor, patch, prerelease}');
-  }
+  yeoman.generators.Base.apply(this, arguments);
 
   this.option('skip-tests', {
     desc: 'Skips tests. This is not recommended but can be used to work around environmental issues.',
     type: 'Boolean'
   });
   this.skipTests = options['skip-tests'];
+
+  if (!args.length && fs.existsSync('.generator-release')) {
+    var options = JSON.parse(fs.readFileSync('.generator-release').toString());
+    this.increment = options.increment;
+  }
+
+  if (!this.increment) {
+    this.argument('increment', {desc: 'Increment type. May be one of {major, minor, patch, prerelease}', required: true});
+  }
+  if (this.increment !== 'major' && this.increment !== 'minor' && this.increment !== 'patch' && this.increment !== 'prerelease') {
+    throw new Error('"' + this.increment + '" must be one of {major, minor, patch, prerelease}');
+  }
 };
 
-util.inherits(ReleaseGenerator, yeoman.generators.NamedBase);
+util.inherits(ReleaseGenerator, yeoman.generators.Base);
 
 ReleaseGenerator.prototype.ensureClean = git.ensureClean;
 ReleaseGenerator.prototype.ensureFetched = git.ensureFetched;
@@ -61,7 +70,7 @@ ReleaseGenerator.prototype.readVersions = function() {
 
   this.priorVersion = (this.bowerConfig || this.packageConfig).version;
 
-  this.version = semver.inc(this.priorVersion, this.name);
+  this.version = semver.inc(this.priorVersion, this.increment);
   if (this.priorVersion && this.priorVersion !== '0.0.0') {
     this.firstCommit = 'v' + this.priorVersion;
   }
@@ -129,6 +138,12 @@ ReleaseGenerator.prototype.tag = function() {
 
 ReleaseGenerator.prototype.push = git.push;
 ReleaseGenerator.prototype.pingPullRequests = git.pingPullRequests;
+
+ReleaseGenerator.prototype.cleanup = function() {
+  if (fs.existsSync('.generator-release')) {
+    fs.unlinkSync('.generator-release');
+  }
+};
 
 ReleaseGenerator.prototype.notes = function() {
   console.log('Successfully pushed. If this is an npm package then `npm publish` now needs to be run.');

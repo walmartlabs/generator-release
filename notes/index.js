@@ -165,3 +165,9 @@ ReleaseNotesGenerator.prototype.notes = function() {
     }
   }
 };
+
+ReleaseNotesGenerator.prototype.recordIncrement = function() {
+  if (!this.dryRun) {
+    fs.writeFileSync('.generator-release', JSON.stringify({increment: this.increment}));
+  }
+};
