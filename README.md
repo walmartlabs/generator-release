@@ -29,7 +29,7 @@ module.exports = {
 
 ### Generating release notes
 ```
-yo release:notes [major|minor|patch|prerelease]
+yo release:notes
 ```
 
 Will generate a template for the release notes including:
@@ -37,7 +37,7 @@ Will generate a template for the release notes including:
 - Gitub pull requests closed since the last release
 - Commits not associated with pull requests
 
-This should be manually edited to ensure that only relevant content is display and any additional gotchas and upgrade concerns noted.
+This should be manually edited to ensure that only relevant content is display and any additional gotchas and upgrade concerns noted. If the `$EDITOR` environment variable is setup the generator will automate the checkin of the updated notes.
 
 
 ### Releasing
@@ -49,6 +49,8 @@ yo release:release [major|minor|patch|prerelease]
 Will increment the release version per the semver action passed in and tag and pushes to the upstream repository.
 
 If publishing to npm the `npm publish` command is still required.
+
+The increment parameter is optional and not recommended if the release notes were just updated for the project.
 
 
 ### Comparing NPM and Bower collections
