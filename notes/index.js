@@ -23,14 +23,6 @@ var ReleaseNotesGenerator = module.exports = function ReleaseNotesGenerator(args
     type: 'Boolean'
   });
   this.rebuild = options.rebuild;
-
-  if (!this.dryRun) {
-    this.argument('increment', {desc: 'Increment type. May be one of {major, minor, patch, prerelease}', required: true});
-
-    if (this.increment !== 'major' && this.increment !== 'minor' && this.increment !== 'patch' && this.increment !== 'prerelease') {
-      throw new Error('"' + this.increment + '" must be one of {major, minor, patch, prerelease}');
-    }
-  }
 };
 
 util.inherits(ReleaseNotesGenerator, yeoman.generators.Base);
@@ -47,7 +39,6 @@ ReleaseNotesGenerator.prototype.readVersions = function() {
   }
 
   this.priorVersion = 'v' + config.version;
-  this.version = 'v' + semver.inc(this.priorVersion, this.increment || 'patch');
 };
 
 ReleaseNotesGenerator.prototype.loadNotes = function() {
@@ -95,6 +86,23 @@ ReleaseNotesGenerator.prototype.originName = git.originName;
 ReleaseNotesGenerator.prototype.findFirstCommit = git.findFirstCommit;
 ReleaseNotesGenerator.prototype.commitTime = git.commitTime;
 ReleaseNotesGenerator.prototype.findChanges = git.findChanges;
+
+
+ReleaseNotesGenerator.prototype.askVersions = function() {
+  var self = this,
+      done = this.async();
+
+  this.prompt({
+    type: 'list',
+    name: 'increment',
+    message: 'Version increment',
+    choices: ['major', 'minor', 'patch', 'prerelease']
+  }, function(props) {
+    self.increment = props.increment;
+    self.version = 'v' + semver.inc(self.priorVersion, self.increment || 'patch');
+    done();
+  });
+};
 
 ReleaseNotesGenerator.prototype.updateNotes = function() {
   if (this.dryRun) {
