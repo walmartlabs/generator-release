@@ -2,7 +2,12 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/generator-release/compare/v2.0.0...master)
+[Commits](https://github.com/walmartlabs/generator-release/compare/v2.1.0...master)
+
+## v2.1.0 - December 22nd, 2013
+- Add default task chaining notes and release tasks - a69667f
+
+[Commits](https://github.com/walmartlabs/generator-release/compare/v2.0.0...v2.1.0)
 
 ## v2.0.0 - December 17th, 2013
 - [#11](https://github.com/walmartlabs/generator-release/issues/11) - Add "[author]" to titles of PRs to CDNJS ([@eastridge](https://api.github.com/users/eastridge))
