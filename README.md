@@ -52,6 +52,13 @@ If publishing to npm the `npm publish` command is still required.
 
 The increment parameter is optional and not recommended if the release notes were just updated for the project.
 
+### Single Command Release
+
+```
+yo release
+```
+
+Shorthand for the tasks above. Will execute both the notes and release tasks via a single command.
 
 ### Comparing NPM and Bower collections
 npm
