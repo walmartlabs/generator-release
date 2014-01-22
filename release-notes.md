@@ -2,7 +2,12 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/generator-release/compare/v2.1.0...master)
+[Commits](https://github.com/walmartlabs/generator-release/compare/v2.1.1...master)
+
+## v2.1.1 - January 21st, 2014
+- [#14](https://github.com/walmartlabs/generator-release/pull/14) - Add a Bitdeli Badge to README ([@bitdeli-chef](https://api.github.com/users/bitdeli-chef))
+
+[Commits](https://github.com/walmartlabs/generator-release/compare/v2.1.0...v2.1.1)
 
 ## v2.1.0 - December 22nd, 2013
 - Add default task chaining notes and release tasks - a69667f
