@@ -3,8 +3,10 @@ var _ = require('underscore'),
     childProcess = require('child_process'),
     CollectVersions = require('../collect-versions'),
     fs = require('fs'),
-    request = require('request'),
+    git = require('../lib/git'),
     util = require('util'),
+    ReleaseGenerator = require('../release'),
+    request = require('request'),
     semver = require('semver'),
     yeoman = require('yeoman-generator');
 
@@ -13,6 +15,16 @@ var AppGenerator = module.exports = function AppGenerator(args, options, config)
 };
 
 util.inherits(AppGenerator, yeoman.generators.Base);
+
+AppGenerator.prototype.ensureClean = git.ensureClean;
+AppGenerator.prototype.ensureFetched = git.ensureFetched;
+
+AppGenerator.prototype.runTest = ReleaseGenerator.prototype.runTest;
+
+AppGenerator.prototype.completeTests = function() {
+  // We ran the tests in the prior step, if we are going do. Don't do it again.
+  this.options['skip-tests'] = true;
+};
 
 AppGenerator.prototype.execNotes = exec('notes');
 AppGenerator.prototype.execRelease = exec('release');
