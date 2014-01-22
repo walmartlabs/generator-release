@@ -2,7 +2,12 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/generator-release/compare/v2.1.1...master)
+[Commits](https://github.com/walmartlabs/generator-release/compare/v2.2.0...master)
+
+## v2.2.0 - January 21st, 2014
+- [#17](https://github.com/walmartlabs/generator-release/pull/17) - Improve test error recovery ([@kpdecker](https://api.github.com/users/kpdecker))
+
+[Commits](https://github.com/walmartlabs/generator-release/compare/v2.1.1...v2.2.0)
 
 ## v2.1.1 - January 21st, 2014
 - [#14](https://github.com/walmartlabs/generator-release/pull/14) - Add a Bitdeli Badge to README ([@bitdeli-chef](https://api.github.com/users/bitdeli-chef))
