@@ -12,6 +12,12 @@ var _ = require('underscore'),
 
 var AppGenerator = module.exports = function AppGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
+
+  this.option('skip-tests', {
+    desc: 'Skips tests. This is not recommended but can be used to work around environmental issues.',
+    type: 'Boolean'
+  });
+  this.skipTests = options['skip-tests'];
 };
 
 util.inherits(AppGenerator, yeoman.generators.Base);
