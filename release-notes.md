@@ -2,7 +2,12 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/generator-release/compare/v2.2.0...master)
+[Commits](https://github.com/walmartlabs/generator-release/compare/v2.3.0...master)
+
+## v2.3.0 - January 22nd, 2014
+- Define skip-tests flag in app generator - 1257d78
+
+[Commits](https://github.com/walmartlabs/generator-release/compare/v2.2.0...v2.3.0)
 
 ## v2.2.0 - January 21st, 2014
 - [#17](https://github.com/walmartlabs/generator-release/pull/17) - Improve test error recovery ([@kpdecker](https://api.github.com/users/kpdecker))
