@@ -130,11 +130,33 @@ ReleaseNotesGenerator.prototype.askVersions = function() {
     type: 'list',
     name: 'increment',
     message: 'Version increment',
-    choices: ['major', 'minor', 'patch', 'prerelease']
+    choices: ['major', 'minor', 'patch', 'prerelease', 'custom']
   }, function(props) {
     self.increment = props.increment;
-    self.version = 'v' + semver.inc(self.priorVersion, self.increment || 'patch');
-    done();
+
+    if (props.increment === 'custom') {
+      self.prompt({
+        name: 'custom',
+        message: 'Please enter new version',
+        default: self.priorVersion
+      }, function(props) {
+        if (!semver.valid(props.custom)) {
+          throw new Error('"' + props.custom + '" is not a valid version');
+        }
+        if (!semver.gt(props.custom, self.priorVersion)) {
+          throw new Error('"' + props.custom + '" must be larger than "' + self.priorVersion + '"');
+        }
+        if (/^v(.*)$/.test(props.custom)) {
+          props.custom = RegExp.$1;
+        }
+
+        self.version = 'v' + props.custom;
+        done();
+      });
+    } else {
+      self.version = 'v' + semver.inc(self.priorVersion, self.increment || 'patch');
+      done();
+    }
   });
 };
 
@@ -168,6 +190,6 @@ ReleaseNotesGenerator.prototype.notes = function() {
 
 ReleaseNotesGenerator.prototype.recordIncrement = function() {
   if (!this.dryRun) {
-    fs.writeFileSync('.generator-release', JSON.stringify({increment: this.increment}));
+    fs.writeFileSync('.generator-release', JSON.stringify({increment: this.increment, version: this.version}));
   }
 };
