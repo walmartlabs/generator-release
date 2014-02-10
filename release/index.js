@@ -21,12 +21,21 @@ var ReleaseGenerator = module.exports = function ReleaseGenerator(args, options,
   if (!args.length && fs.existsSync('.generator-release')) {
     var options = JSON.parse(fs.readFileSync('.generator-release').toString());
     this.increment = options.increment;
+    this.version = options.version;
+
+    if (/^v(.*)$/.test(this.version)) {
+      this.version = RegExp.$1;
+    }
   }
 
   if (!this.increment) {
     this.argument('increment', {desc: 'Increment type. May be one of {major, minor, patch, prerelease}', required: true});
   }
-  if (this.increment !== 'major' && this.increment !== 'minor' && this.increment !== 'patch' && this.increment !== 'prerelease') {
+  if (this.increment === 'custom') {
+    if (!semver.valid(this.version)) {
+      throw new Error('Custom version "' + this.version + '" is invalid');
+    }
+  } else if (this.increment !== 'major' && this.increment !== 'minor' && this.increment !== 'patch' && this.increment !== 'prerelease') {
     throw new Error('"' + this.increment + '" must be one of {major, minor, patch, prerelease}');
   }
 };
@@ -70,7 +79,9 @@ ReleaseGenerator.prototype.readVersions = function() {
 
   this.priorVersion = (this.bowerConfig || this.packageConfig).version;
 
-  this.version = semver.inc(this.priorVersion, this.increment);
+  if (this.increment !== 'custom') {
+    this.version = semver.inc(this.priorVersion, this.increment);
+  }
   if (this.priorVersion && this.priorVersion !== '0.0.0') {
     this.firstCommit = 'v' + this.priorVersion;
   }
