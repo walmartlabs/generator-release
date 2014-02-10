@@ -36,6 +36,9 @@ PublishVersion.prototype.readVersions = function() {
   }
 
   this.version = (bowerConfig || packageConfig).version;
+  if (/^v(.*)$/.test(this.version)) {
+    this.version = RegExp.$1;
+  }
 };
 
 PublishVersion.prototype.configure = function() {
