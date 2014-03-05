@@ -2,7 +2,15 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/generator-release/compare/v2.3.0...master)
+[Commits](https://github.com/walmartlabs/generator-release/compare/v2.3.1...master)
+
+## v2.3.1 - March 5th, 2014
+- Add check for $EDITOR in release:app mode - 99b3976
+- Strip v version prefix in publish generator - 2976061
+- Handle custom versions in release generator - a1935d2
+- Allow for custom version entry - a8cadf5
+
+[Commits](https://github.com/walmartlabs/generator-release/compare/v2.3.0...v2.3.1)
 
 ## v2.3.0 - January 22nd, 2014
 - Define skip-tests flag in app generator - 1257d78
