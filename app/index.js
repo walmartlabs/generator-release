@@ -22,6 +22,12 @@ var AppGenerator = module.exports = function AppGenerator(args, options, config)
 
 util.inherits(AppGenerator, yeoman.generators.Base);
 
+AppGenerator.prototype.ensureEditor = function() {
+  if (!process.env.EDITOR) {
+    throw new Error('$EDITOR environmental variable must be set when using `yo release` command.');
+  }
+};
+
 AppGenerator.prototype.ensureClean = git.ensureClean;
 AppGenerator.prototype.ensureFetched = git.ensureFetched;
 

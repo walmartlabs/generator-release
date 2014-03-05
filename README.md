@@ -58,7 +58,7 @@ The increment parameter is optional and not recommended if the release notes wer
 yo release
 ```
 
-Shorthand for the tasks above. Will execute both the notes and release tasks via a single command.
+Shorthand for the tasks above. Will execute both the notes and release tasks via a single command. Note that the `$EDITOR` environment variable must be set to a supporting editor to use this mode.
 
 ### Comparing NPM and Bower collections
 npm
