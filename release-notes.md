@@ -11,9 +11,6 @@
 - Protect from duplicated v in version - 0843ff5
 - Improve logging of git operation errors - 589e596
 
-Compatibility notes:
-- TODO : What might have broken?
-
 [Commits](https://github.com/walmartlabs/generator-release/compare/v2.3.1...v2.3.2)
 
 ## v2.3.1 - March 5th, 2014
