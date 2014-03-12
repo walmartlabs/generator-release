@@ -110,25 +110,21 @@ ReleaseNotesGenerator.prototype.generateNotes = function() {
 
       console.log('Launching $EDITOR: ' + process.env.EDITOR);
 
-      var file = '/bin/sh',
-          args = ['-c', process.env.EDITOR, info.path];
+      var command= process.env.EDITOR + ' ' + info.path,
+          file = '/bin/sh',
+          args = ['-c', command];
       if (process.platform === 'win32') {
         file = 'cmd.exe';
-        args = ['/s', '/c', '"' + process.env.EDITOR + '"', info.path];
+        args = ['/s', '/c', '"' + command + '"'];
       }
 
       childProcess.spawn(file, args, {
-        stdio: [
-          process.stdin,
-          process.stdout,
-          process.stderr
-        ]
+        stdio: 'inherit'
       })
       .on('error', function(err) {
-          throw err;
+        throw err;
       })
       .on('exit', function() {
-
         self.notesContent = fs.readFileSync(info.path).toString();
         if (!self.notesContent) {
           throw new Error('No content entered for notes');
