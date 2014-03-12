@@ -109,7 +109,15 @@ ReleaseNotesGenerator.prototype.generateNotes = function() {
       fs.closeSync(info.fd);
 
       console.log('Launching $EDITOR: ' + process.env.EDITOR);
-      childProcess.spawn(process.env.EDITOR, [info.path], {
+
+      var file = '/bin/sh',
+          args = ['-c', process.env.EDITOR, info.path];
+      if (process.platform === 'win32') {
+        file = 'cmd.exe';
+        args = ['/s', '/c', '"' + process.env.EDITOR + '"', info.path];
+      }
+
+      childProcess.spawn(file, args, {
         stdio: [
           process.stdin,
           process.stdout,
