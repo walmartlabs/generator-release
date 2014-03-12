@@ -40,6 +40,9 @@ ReleaseNotesGenerator.prototype.readVersions = function() {
   }
 
   this.priorVersion = 'v' + config.version;
+  if (/^v(v.*)$/.test(this.priorVersion)) {
+    this.priorVersion = RegExp.$1;
+  }
 };
 
 ReleaseNotesGenerator.prototype.loadNotes = function() {

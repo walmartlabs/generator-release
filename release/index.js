@@ -23,7 +23,7 @@ var ReleaseGenerator = module.exports = function ReleaseGenerator(args, options,
     this.increment = options.increment;
     this.version = options.version;
 
-    if (/^v(.*)$/.test(this.version)) {
+    if (/^v(v.*)$/.test(this.version)) {
       this.version = RegExp.$1;
     }
   }
@@ -78,6 +78,9 @@ ReleaseGenerator.prototype.readVersions = function() {
   }
 
   this.priorVersion = (this.bowerConfig || this.packageConfig).version;
+  if (/^v(.*)$/.test(this.priorVersion)) {
+    this.priorVersion = RegExp.$1;
+  }
 
   if (this.increment !== 'custom') {
     this.version = semver.inc(this.priorVersion, this.increment);
