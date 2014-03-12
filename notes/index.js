@@ -108,6 +108,7 @@ ReleaseNotesGenerator.prototype.generateNotes = function() {
       fs.writeSync(info.fd, self.notesContent);
       fs.closeSync(info.fd);
 
+      console.log('Launching $EDITOR: ' + process.env.EDITOR);
       childProcess.spawn(process.env.EDITOR, [info.path], {
         stdio: [
           process.stdin,
