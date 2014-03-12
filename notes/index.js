@@ -105,10 +105,17 @@ ReleaseNotesGenerator.prototype.generateNotes = function() {
       fs.writeSync(info.fd, self.notesContent);
       fs.closeSync(info.fd);
 
-      childProcess.exec(process.env.EDITOR + ' "' + info.path + '"', function(err, stdout, stderr) {
-        if (err) {
+      childProcess.spawn(process.env.EDITOR, [info.path], {
+        stdio: [
+          process.stdin,
+          process.stdout,
+          process.stderr
+        ]
+      })
+      .on('error', function(err) {
           throw err;
-        }
+      })
+      .on('exit', function() {
 
         self.notesContent = fs.readFileSync(info.path).toString();
         if (!self.notesContent) {
