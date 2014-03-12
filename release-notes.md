@@ -2,7 +2,19 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/generator-release/compare/v2.3.1...master)
+[Commits](https://github.com/walmartlabs/generator-release/compare/v2.3.2...master)
+
+## v2.3.2 - March 12th, 2014
+- [#19](https://github.com/walmartlabs/generator-release/pull/19) - use spawn instead of exec to start $EDITOR, to support terminal editors ([@patrickkettner](https://api.github.com/users/patrickkettner))
+- Resolves paths when exec EDITOR - 95ea097
+- Add log statement to make editor action obvious - 526c081
+- Protect from duplicated v in version - 0843ff5
+- Improve logging of git operation errors - 589e596
+
+Compatibility notes:
+- TODO : What might have broken?
+
+[Commits](https://github.com/walmartlabs/generator-release/compare/v2.3.1...v2.3.2)
 
 ## v2.3.1 - March 5th, 2014
 - Add check for $EDITOR in release:app mode - 99b3976
