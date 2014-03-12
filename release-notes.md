@@ -2,7 +2,12 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/generator-release/compare/v2.3.2...master)
+[Commits](https://github.com/walmartlabs/generator-release/compare/v2.3.3...master)
+
+## v2.3.3 - March 12th, 2014
+- Fix process argument passing for EDITOR command - fe9c8c9
+
+[Commits](https://github.com/walmartlabs/generator-release/compare/v2.3.2...v2.3.3)
 
 ## v2.3.2 - March 12th, 2014
 - [#19](https://github.com/walmartlabs/generator-release/pull/19) - use spawn instead of exec to start $EDITOR, to support terminal editors ([@patrickkettner](https://api.github.com/users/patrickkettner))
