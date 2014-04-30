@@ -56,6 +56,9 @@ If publishing to npm the `npm publish` command is still required.
 
 The increment parameter is optional and not recommended if the release notes were just updated for the project.
 
+**Additional options**:
+* `--skip-tests` — skips tests (**this is not recommended but can be used to work around environmental issues**)
+
 ### Single Command Release
 
 ```
