@@ -39,6 +39,10 @@ Will generate a template for the release notes including:
 
 This should be manually edited to ensure that only relevant content is display and any additional gotchas and upgrade concerns noted. If the `$EDITOR` environment variable is setup the generator will automate the checkin of the updated notes.
 
+**Additional options**:
+* `--dry-run` — finds the changes that will be recorded and log to the console rather than disk.
+* `--rebuild` - specifes that we want to create notes for the existing version
+
 
 ### Releasing
 
