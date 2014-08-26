@@ -2,7 +2,13 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/generator-release/compare/v2.3.3...master)
+[Commits](https://github.com/walmartlabs/generator-release/compare/v2.3.4...master)
+
+## v2.3.4 - August 26th, 2014
+- [#21](https://github.com/walmartlabs/generator-release/pull/21) - Adding additional options for release/notes commands ([@DeTeam](https://api.github.com/users/DeTeam))
+- Prevent duplicate v error on custom version - 0723d53
+
+[Commits](https://github.com/walmartlabs/generator-release/compare/v2.3.3...v2.3.4)
 
 ## v2.3.3 - March 12th, 2014
 - Fix process argument passing for EDITOR command - fe9c8c9
