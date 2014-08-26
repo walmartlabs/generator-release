@@ -23,7 +23,7 @@ var ReleaseGenerator = module.exports = function ReleaseGenerator(args, options,
     this.increment = options.increment;
     this.version = options.version;
 
-    if (/^v(v.*)$/.test(this.version)) {
+    if (/^v*(.*)$/.test(this.version)) {
       this.version = RegExp.$1;
     }
   }
