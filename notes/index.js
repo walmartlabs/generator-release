@@ -75,10 +75,10 @@ ReleaseNotesGenerator.prototype.checkRebuild = function() {
       throw new Error('Rebuild specified but no existing release notes found');
     }
 
-    var matcher = new RegExp('/([^/]*)\\.\\.\\.' + this.firstCommit.replace(/\./g, '\\.')),
+    var matcher = new RegExp('/([^/]*)\\.\\.\\.(' + this.firstCommit.replace(/\./g, '\\.') + '|master)'),
         priorVersion = (matcher.exec(this.existing) || [])[1];
     if (!priorVersion) {
-      throw new Error('Unable to find previous version in release notes');
+      throw new Error('Unable to find previous version "' + this.firstCommit + '" in release notes');
     }
 
     this.lastCommit = this.firstCommit;
