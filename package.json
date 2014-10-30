@@ -1,6 +1,6 @@
 {
   "name": "generator-release",
-  "version": "2.3.4",
+  "version": "2.3.5",
   "description": "A release generator for Yeoman",
   "keywords": [
     "yeoman-generator",
