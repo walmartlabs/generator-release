@@ -2,7 +2,14 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/generator-release/compare/v2.3.4...master)
+[Commits](https://github.com/walmartlabs/generator-release/compare/v2.3.5...master)
+
+## v2.3.5 - October 30th, 2014
+- [#27](https://github.com/walmartlabs/generator-release/pull/27) - Fix missing PRs and duplicate links ([@Candid](https://api.github.com/users/Candid))
+- [#26](https://github.com/walmartlabs/generator-release/pull/26) - Use github API to get pull commits ([@Candid](https://api.github.com/users/Candid))
+- Match release notes tags with master - b39ae73
+
+[Commits](https://github.com/walmartlabs/generator-release/compare/v2.3.4...v2.3.5)
 
 ## v2.3.4 - August 26th, 2014
 - [#21](https://github.com/walmartlabs/generator-release/pull/21) - Adding additional options for release/notes commands ([@DeTeam](https://api.github.com/users/DeTeam))
