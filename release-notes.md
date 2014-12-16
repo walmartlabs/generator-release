@@ -2,7 +2,12 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/generator-release/compare/v2.3.5...master)
+[Commits](https://github.com/walmartlabs/generator-release/compare/v2.3.6...master)
+
+## v2.3.6 - December 15th, 2014
+- Handle github subversion urls for fetch url lookup - ddfe493
+
+[Commits](https://github.com/walmartlabs/generator-release/compare/v2.3.5...v2.3.6)
 
 ## v2.3.5 - October 30th, 2014
 - [#27](https://github.com/walmartlabs/generator-release/pull/27) - Fix missing PRs and duplicate links ([@Candid](https://api.github.com/users/Candid))
