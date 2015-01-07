@@ -132,6 +132,10 @@ ReleaseNotesGenerator.prototype.generateNotes = function() {
         console.log('Proposed Notes:');
         console.log(self.notesContent);
 
+        if (/- TODO : /.test(self.notesContent)) {
+          throw new Error('TODO left in notes. Please remove and try again.');
+        }
+
         self.commit = true;
         done();
       });
