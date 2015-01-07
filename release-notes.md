@@ -2,7 +2,15 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/generator-release/compare/v2.3.6...master)
+[Commits](https://github.com/walmartlabs/generator-release/compare/v2.4.0...master)
+
+## v2.4.0 - January 6th, 2015
+- [#28](https://github.com/walmartlabs/generator-release/issues/28) - GitHub Enterprise Installation ([@pantocrator27](https://api.github.com/users/pantocrator27))
+- [#23](https://github.com/walmartlabs/generator-release/issues/23) - Warn when TODO entry is still listed in the release message ([@kpdecker](https://api.github.com/users/kpdecker))
+- [#20](https://github.com/walmartlabs/generator-release/issues/20) - Error: commitTime: stdout maxBuffer exceeded. ([@calmdev](https://api.github.com/users/calmdev))
+- Include previous message in notes if failed - 7810669
+
+[Commits](https://github.com/walmartlabs/generator-release/compare/v2.3.6...v2.4.0)
 
 ## v2.3.6 - December 15th, 2014
 - Handle github subversion urls for fetch url lookup - ddfe493
