@@ -25,6 +25,27 @@ module.exports = {
 };
 ```
 
+### Enterprise hosts
+
+generator-release can work against GitHub enterprise hosts when defined in the `hosts` key.
+
+```javascript
+module.exports = {
+  auth: 'oauth',
+  token: 'GitHub OAuth token',
+
+  hosts: {
+    'my.host': {
+      token: 'Enterprise GitHub OAuth token',
+      apiUrl: 'https://my.host/api/v3'
+    }
+  }
+};
+
+```
+
+When operating against a matching host, the entire object will be used to extend the base config object, allowing for any config object to be overridden per host. In the example above this is akin to `_.extend(module.exports, module.exports.hosts['my.host'])`.
+
 ## Usage
 
 ### Generating release notes
