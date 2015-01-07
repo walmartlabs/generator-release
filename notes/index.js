@@ -129,6 +129,8 @@ ReleaseNotesGenerator.prototype.generateNotes = function() {
         if (!self.notesContent) {
           throw new Error('No content entered for notes');
         }
+        console.log('Proposed Notes:');
+        console.log(self.notesContent);
 
         self.commit = true;
         done();
