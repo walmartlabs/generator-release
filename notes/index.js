@@ -23,6 +23,11 @@ var ReleaseNotesGenerator = module.exports = function ReleaseNotesGenerator(args
     type: 'Boolean'
   });
   this.rebuild = options.rebuild;
+
+  if (fs.existsSync('.generator-release')) {
+    var prior = JSON.parse(fs.readFileSync('.generator-release').toString());
+    this.note = prior.note;
+  }
 };
 
 util.inherits(ReleaseNotesGenerator, yeoman.generators.Base);
@@ -90,9 +95,27 @@ ReleaseNotesGenerator.prototype.findFirstCommit = git.findFirstCommit;
 ReleaseNotesGenerator.prototype.commitTime = git.commitTime;
 ReleaseNotesGenerator.prototype.findChanges = git.findChanges;
 
+ReleaseNotesGenerator.prototype.promptExisting = function() {
+  if (this.note) {
+    var self = this,
+        done = this.async();
+
+    this.prompt({
+      type: 'confirm',
+      name: 'reuse',
+      message: 'Unfinished notes found. Reuse?'
+    }, function(props) {
+      if (!props.reuse) {
+        self.note = undefined;
+      }
+      done();
+    });
+  }
+};
+
 ReleaseNotesGenerator.prototype.generateNotes = function() {
   var self = this;
-  this.notesContent = this.engine(this.read('_log.md'), this);
+  this.notesContent = this.note || this.engine(this.read('_log.md'), this);
 
   if (process.env.EDITOR) {
     var temp = require('temp');
@@ -124,12 +147,11 @@ ReleaseNotesGenerator.prototype.generateNotes = function() {
         throw err;
       })
       .on('exit', function() {
-        self.notesContent = fs.readFileSync(info.path).toString();
+        self.note = self.notesContent = fs.readFileSync(info.path).toString();
         if (!self.notesContent) {
           throw new Error('No content entered for notes');
         }
-        console.log('Proposed Notes:');
-        console.log(self.notesContent);
+        saveConfig({note: self.note});
 
         if (/- TODO : /.test(self.notesContent)) {
           throw new Error('TODO left in notes. Please remove and try again.');
@@ -210,6 +232,14 @@ ReleaseNotesGenerator.prototype.notes = function() {
 
 ReleaseNotesGenerator.prototype.recordIncrement = function() {
   if (!this.dryRun) {
-    fs.writeFileSync('.generator-release', JSON.stringify({increment: this.increment, version: this.version}));
+    saveConfig(this);
   }
 };
+
+function saveConfig(generator) {
+  fs.writeFileSync('.generator-release', JSON.stringify({
+    note: generator.note,
+    increment: generator.increment,
+    version: generator.version
+  }));
+}
