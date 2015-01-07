@@ -1,13 +1,11 @@
 var _ = require('underscore'),
-    bower = require('bower'),
     childProcess = require('child_process'),
     fs = require('fs'),
     request = require('request'),
     util = require('util'),
-    semver = require('semver'),
     yeoman = require('yeoman-generator');
 
-var CollectVersions = module.exports = function CollectVersions(args, options, config) {
+var CollectVersions = module.exports = function CollectVersions() {
 
   yeoman.generators.Base.apply(this, arguments);
 
@@ -62,7 +60,7 @@ CollectVersions.prototype._scotsman = function() {
 CollectVersions.prototype._bowerLS = function() {
   var done = this.async(),
       self = this;
-  childProcess.exec('bower ls --offline', function(err, stdout, stderr) {
+  childProcess.exec('bower ls --offline', function(err, stdout) {
     if (err) {
       throw err;
     }
@@ -77,7 +75,7 @@ CollectVersions.prototype._bowerLS = function() {
 CollectVersions.prototype._npmLS = function() {
   var done = this.async(),
       self = this;
-  childProcess.exec('npm ls --json', function(err, stdout, stderr) {
+  childProcess.exec('npm ls --json', function(err, stdout) {
     if (err) {
       throw err;
     }

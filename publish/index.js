@@ -1,14 +1,9 @@
-var _ = require('underscore'),
-    childProcess = require('child_process'),
-    Config = require('../lib/config'),
-    fs = require('fs'),
+var fs = require('fs'),
     git = require('../lib/git'),
-    request = require('request'),
     util = require('util'),
-    semver = require('semver'),
     yeoman = require('yeoman-generator');
 
-var PublishVersion = module.exports = function PublishVersion(args, options, config) {
+var PublishVersion = module.exports = function PublishVersion() {
   yeoman.generators.Base.apply(this, arguments);
 
   this.sourceRoot('.');

@@ -4,12 +4,11 @@ var _ = require('underscore'),
     fs = require('fs'),
     git = require('../lib/git'),
     grunt = require('grunt'),
-    path = require('path'),
     util = require('util'),
     semver = require('semver'),
     yeoman = require('yeoman-generator');
 
-var ReleaseGenerator = module.exports = function ReleaseGenerator(args, options, config) {
+var ReleaseGenerator = module.exports = function ReleaseGenerator(args, options) {
   yeoman.generators.Base.apply(this, arguments);
 
   this.option('skip-tests', {

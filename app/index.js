@@ -1,16 +1,9 @@
-var _ = require('underscore'),
-    bower = require('bower'),
-    childProcess = require('child_process'),
-    CollectVersions = require('../collect-versions'),
-    fs = require('fs'),
-    git = require('../lib/git'),
+var git = require('../lib/git'),
     util = require('util'),
     ReleaseGenerator = require('../release'),
-    request = require('request'),
-    semver = require('semver'),
     yeoman = require('yeoman-generator');
 
-var AppGenerator = module.exports = function AppGenerator(args, options, config) {
+var AppGenerator = module.exports = function AppGenerator(args, options) {
   yeoman.generators.Base.apply(this, arguments);
 
   this.option('skip-tests', {

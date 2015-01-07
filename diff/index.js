@@ -1,14 +1,11 @@
 var _ = require('underscore'),
     bower = require('bower'),
-    childProcess = require('child_process'),
-    CollectVersions = require('../collect-versions'),
     fs = require('fs'),
-    request = require('request'),
     util = require('util'),
     semver = require('semver'),
     yeoman = require('yeoman-generator');
 
-var DiffGenerator = module.exports = function DiffGenerator(args, options, config) {
+var DiffGenerator = module.exports = function DiffGenerator() {
   yeoman.generators.Base.apply(this, arguments);
 
   this.argument('previous', {'desc': 'Previous version information', required: true});
@@ -101,8 +98,7 @@ DiffGenerator.prototype.findNotes = function() {
 };
 
 DiffGenerator.prototype.output = function() {
-  var out = '',
-      self = this;
+  var out = '';
   if (this.added.length) {
     _.each(this.added, function(added) {
       out += '# ' + added.name + '\n';

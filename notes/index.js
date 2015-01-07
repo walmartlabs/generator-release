@@ -3,12 +3,11 @@ var childProcess = require('child_process'),
     fs = require('fs'),
     dateFormat = require('dateformat'),
     git = require('../lib/git'),
-    path = require('path'),
     util = require('util'),
     semver = require('semver'),
     yeoman = require('yeoman-generator');
 
-var ReleaseNotesGenerator = module.exports = function ReleaseNotesGenerator(args, options, config) {
+var ReleaseNotesGenerator = module.exports = function ReleaseNotesGenerator(args, options) {
   yeoman.generators.Base.apply(this, arguments);
 
   this.date = dateFormat(new Date(), 'mmmm dS, yyyy');
