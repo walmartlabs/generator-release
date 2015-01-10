@@ -2,7 +2,12 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/generator-release/compare/v2.4.0...master)
+[Commits](https://github.com/walmartlabs/generator-release/compare/v2.5.0...master)
+
+## v2.5.0 - January 9th, 2015
+- Add enterprise github support for publish command - b9f3aec
+
+[Commits](https://github.com/walmartlabs/generator-release/compare/v2.4.0...v2.5.0)
 
 ## v2.4.0 - January 6th, 2015
 - [#28](https://github.com/walmartlabs/generator-release/issues/28) - GitHub Enterprise Installation ([@pantocrator27](https://api.github.com/users/pantocrator27))
