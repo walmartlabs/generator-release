@@ -113,6 +113,4 @@ Pushes a particular directory of artifacts to cdnjs or the github components pro
 
 Note that at this time only frontend publishing is possible. NPM publishing should still be done directly through the `npm publish` command.
 
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/walmartlabs/generator-release/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
+Enterprise hosts may be published to using the `--host=$server` option.

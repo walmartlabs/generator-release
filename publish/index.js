@@ -8,6 +8,9 @@ var PublishVersion = module.exports = function PublishVersion() {
 
   this.sourceRoot('.');
 
+  this.option('host', {desc: 'Enterprise host', type: 'string'});
+  this.host = this.options.host;
+
   this.argument('type', {desc: 'Deploy type. May be one of {cdnjs, components}', required: true});
   this.argument('name', {desc: 'Project repository name', required: true});
   this.argument('buildDir', {desc: 'Directory containing artifacts to deploy', required: true});
