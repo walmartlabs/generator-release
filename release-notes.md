@@ -2,7 +2,13 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/generator-release/compare/v2.5.0...master)
+[Commits](https://github.com/walmartlabs/generator-release/compare/v2.6.0...master)
+
+## v2.6.0 - January 23rd, 2015
+- [#29](https://github.com/walmartlabs/generator-release/pull/29) - Use more reliable url to fetch pull commits ([@Candid](https://api.github.com/users/Candid))
+- Add support for gulp version update command - 0a5b201
+
+[Commits](https://github.com/walmartlabs/generator-release/compare/v2.5.0...v2.6.0)
 
 ## v2.5.0 - January 9th, 2015
 - Add enterprise github support for publish command - b9f3aec
