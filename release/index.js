@@ -1,6 +1,7 @@
 'use strict';
 var _ = require('underscore'),
     chalk = require('chalk'),
+    ChildProcess = require('child_process'),
     fs = require('fs'),
     git = require('../lib/git'),
     grunt = require('grunt'),
@@ -116,7 +117,7 @@ ReleaseGenerator.prototype.incrementVersion = function() {
   }
 };
 
-ReleaseGenerator.prototype.projectUpdate = function() {
+ReleaseGenerator.prototype.gruntUpdate = function() {
   // Load the grunt tasks list
   grunt.task.init([], {help: true});
   var tasks = _.keys(grunt.task._tasks);
@@ -138,6 +139,35 @@ ReleaseGenerator.prototype.projectUpdate = function() {
         });
   }
 };
+
+ReleaseGenerator.prototype.gulpUpdate = function() {
+  var cb = this.async(),
+      self = this;
+
+  // Load the gulp tasks list
+  ChildProcess.exec('gulp --tasks-simple', function(err, stdout, stderr) {
+    var tasks = stdout.split(/\n/);
+
+    // If there is a version task, run it
+    if (tasks.indexOf('version') >= 0) {
+      self.spawnCommand('gulp', ['version', '--ver=' + self.version])
+          .on('error', function(err) {
+            throw err;
+          })
+          .on('exit', function(code) {
+            if (code) {
+              throw new Error('Version update failed');
+            } else {
+              cb();
+            }
+          });
+    } else {
+      cb();
+    }
+  });
+};
+
+
 
 ReleaseGenerator.prototype.commit = function() {
   // We are assuming that we will always modify somehting and that the
