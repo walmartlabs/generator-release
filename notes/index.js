@@ -231,9 +231,7 @@ ReleaseNotesGenerator.prototype.notes = function() {
 };
 
 ReleaseNotesGenerator.prototype.recordIncrement = function() {
-  if (!this.dryRun) {
-    saveConfig(this);
-  }
+  saveConfig(this);
 };
 
 function saveConfig(generator) {
