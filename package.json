@@ -34,7 +34,7 @@
     "semver": "~2.1.0",
     "temp": "~0.6.0",
     "yeoman-generator": "~0.13.0",
-    "underscore": "~1.5.1"
+    "underscore": "~1.10.2"
   },
   "devDependencies": {
     "mocha": "~1.12.0"
